@@ -4,11 +4,10 @@ namespace App\Swagger\Schemas;
 
 /**
  * @OA\Schema(
- *     schema="Podcast",
+ *     schema="PodcastSchema",
  *     type="object",
  *     title="Podcast Resource"
  * )
- *
  * @OA\Property(property="id", type="integer", example=10)
  * @OA\Property(property="user_id", type="integer", example=1)
  * @OA\Property(property="title", type="string", example="Tech Talks")

@@ -1,0 +1,722 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API BriefPodCast",
+        "description": "Documentation de l'API pour la gestion des utilisateurs, podcasts et épisodes",
+        "contact": {
+            "name": "Support BriefPodCast",
+            "email": "support@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Serveur local"
+        },
+        {
+            "url": "https://api.example.com",
+            "description": "Serveur de production"
+        }
+    ],
+    "paths": {
+        "/api/episodes": {
+            "get": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "List all episodes",
+                "operationId": "1b66de464dc6752e2a46c59755e14ec5",
+                "responses": {
+                    "200": {
+                        "description": "All episodes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/EpisodeSchema"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Create episode",
+                "operationId": "c7ac7360a74aa84d21a0c1bd419fb0b0",
+                "requestBody": {
+                    "$ref": "#/components/schemas/EpisodeRequestSchema"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Episode created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EpisodeSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/episodes/{id}": {
+            "get": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Show episode by ID",
+                "operationId": "08d63009fc62adc7ff19bc2bef534166",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Episode ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Episode details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EpisodeSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Update episode",
+                "operationId": "3f5ec407bd59c97aa7e3e32714ebf9db",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/EpisodeRequestSchema"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Episode updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EpisodeSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Delete episode",
+                "operationId": "66245fc4ef415e808bd29f4b84b05ce5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Episode deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/podcasts": {
+            "get": {
+                "tags": [
+                    "Podcast"
+                ],
+                "summary": "List all podcasts",
+                "operationId": "6d29d161b1173b9b24da60c76dffca86",
+                "responses": {
+                    "200": {
+                        "description": "All podcasts",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PodcastSchema"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Podcast"
+                ],
+                "summary": "Create podcast",
+                "operationId": "b788a75eb85b42e559aebd7506627dd4",
+                "requestBody": {
+                    "$ref": "#/components/schemas/PodcastRequestSchema"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Podcast created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PodcastSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/podcasts/{id}": {
+            "get": {
+                "tags": [
+                    "Podcast"
+                ],
+                "summary": "Show podcast by ID",
+                "operationId": "ae3a3d2d61446698b2c5f891fd50b4a9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Podcast ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Podcast details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PodcastSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Podcast"
+                ],
+                "summary": "Update podcast",
+                "operationId": "1aefe800776a2aa9d23242910a5b52c3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/PodcastRequestSchema"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Podcast updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PodcastSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Podcast"
+                ],
+                "summary": "Delete podcast",
+                "operationId": "0f28df32587d2251b1c48509bd67383e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Podcast deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Register new user",
+                "operationId": "7f757fb1930c543ee7805e3a59cceff1",
+                "requestBody": {
+                    "$ref": "#/components/schemas/UserRequestSchema"
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Login user",
+                "operationId": "8858ddfeef2391cbcd88b1fcf07beb12",
+                "requestBody": {
+                    "$ref": "#/components/schemas/UserLoginRequestSchema"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Logout user",
+                "operationId": "788283325a07ed32a6100880edc98d04",
+                "responses": {
+                    "200": {
+                        "description": "Logout successful"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "List all users",
+                "operationId": "a1180156d01e8a79454bba3ad99e33aa",
+                "responses": {
+                    "200": {
+                        "description": "All users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserSchema"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Show user by ID",
+                "operationId": "3ad76a6aefcde6764eff20ee55129205",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user",
+                "operationId": "a2d33778cac4442e01ab6eeb0d3ca5f3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/UserRequestSchema"
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete user",
+                "operationId": "889269b5c0b1e1e038a3f0f7a1c76516",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "EpisodeRequestSchema": {
+                "title": "Episode Request",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Episode 1: AI Revolution"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Discussion about AI trends."
+                    },
+                    "audio_path": {
+                        "type": "string",
+                        "example": "/storage/episodes/audio1.mp3"
+                    }
+                },
+                "type": "object"
+            },
+            "EpisodeSchema": {
+                "title": "Episode Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 50
+                    },
+                    "podcast_id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Episode 1: AI Revolution"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Discussion about AI trends."
+                    },
+                    "audio_path": {
+                        "type": "string",
+                        "example": "/storage/episodes/audio1.mp3"
+                    },
+                    "is_published": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-10-20T14:32:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-10-20T14:32:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "PodcastRequestSchema": {
+                "title": "Podcast Request",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Tech Talks"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Podcast about technology news."
+                    },
+                    "genre": {
+                        "type": "string",
+                        "example": "Technology"
+                    },
+                    "image_path": {
+                        "type": "string",
+                        "example": "/storage/podcasts/img1.png"
+                    }
+                },
+                "type": "object"
+            },
+            "PodcastSchema": {
+                "title": "Podcast Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Tech Talks"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Podcast about technology news."
+                    },
+                    "image_path": {
+                        "type": "string",
+                        "example": "/storage/podcasts/img1.png"
+                    },
+                    "genre": {
+                        "type": "string",
+                        "example": "Technology"
+                    },
+                    "is_published": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-10-20T14:32:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-10-20T14:32:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "UserLoginRequestSchema": {
+                "title": "User Login Request",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "password123"
+                    }
+                },
+                "type": "object"
+            },
+            "UserRequestSchema": {
+                "title": "User Request",
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "password123"
+                    },
+                    "role": {
+                        "type": "string",
+                        "example": "user"
+                    }
+                },
+                "type": "object"
+            },
+            "UserSchema": {
+                "title": "User Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "role": {
+                        "type": "string",
+                        "example": "admin"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-10-15T12:30:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-10-15T12:30:00Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "User",
+            "description": "Endpoints pour gérer les utilisateurs"
+        },
+        {
+            "name": "Podcast",
+            "description": "Endpoints pour gérer les podcasts"
+        },
+        {
+            "name": "Episode",
+            "description": "Endpoints pour gérer les épisodes"
+        }
+    ]
+}

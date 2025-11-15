@@ -3,68 +3,63 @@
 namespace App\Swagger\Controllers;
 
 /**
- * @OA\Tag(
- *     name="User",
- *     description="Endpoints pour gérer les utilisateurs"
- * )
+ * @OA\Info(title="Podcast API", version="1.0.0")
+ * @OA\Tag(name="User", description="Endpoints pour gérer les utilisateurs")
  */
 
 /**
  * @OA\Post(
  *     path="/api/register",
- *     summary="Register new user",
  *     tags={"User"},
+ *     summary="Register new user",
  *     @OA\RequestBody(ref="#/components/schemas/UserRequestSchema"),
- *     @OA\Response(response=201, description="User registered", @OA\JsonContent(ref="#/components/schemas/UserSchema")),
- *     @OA\Response(response=500, description="Registration failed")
+ *     @OA\Response(response=201, description="User registered", @OA\JsonContent(ref="#/components/schemas/UserSchema"))
  * )
- */
-
-/**
  * @OA\Post(
  *     path="/api/login",
- *     summary="Login user",
  *     tags={"User"},
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             required={"email","password"},
- *             @OA\Property(property="email", type="string", example="john@example.com"),
- *             @OA\Property(property="password", type="string", example="password123")
- *         )
- *     ),
- *     @OA\Response(response=200, description="Login success")
+ *     summary="Login user",
+ *     @OA\RequestBody(ref="#/components/schemas/UserLoginRequestSchema"),
+ *     @OA\Response(response=200, description="Login success", @OA\JsonContent(ref="#/components/schemas/UserSchema"))
  * )
- */
-
-/**
  * @OA\Post(
  *     path="/api/logout",
- *     summary="Logout user",
  *     tags={"User"},
+ *     summary="Logout user",
  *     security={{"sanctum":{}}},
- *     @OA\Response(response=200, description="Logout successfully")
+ *     @OA\Response(response=200, description="Logout successful")
  * )
- */
-
-/**
  * @OA\Get(
  *     path="/api/users",
- *     summary="List all users",
  *     tags={"User"},
+ *     summary="List all users",
  *     security={{"sanctum":{}}},
  *     @OA\Response(response=200, description="All users", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/UserSchema")))
  * )
- */
-
-/**
  * @OA\Get(
  *     path="/api/users/{id}",
- *     summary="Show user by ID",
  *     tags={"User"},
+ *     summary="Show user by ID",
  *     security={{"sanctum":{}}},
  *     @OA\Parameter(name="id", in="path", required=true, description="User ID"),
  *     @OA\Response(response=200, description="User details", @OA\JsonContent(ref="#/components/schemas/UserSchema"))
+ * )
+ * @OA\Put(
+ *     path="/api/users/{id}",
+ *     tags={"User"},
+ *     summary="Update user",
+ *     security={{"sanctum":{}}},
+ *     @OA\Parameter(name="id", in="path", required=true),
+ *     @OA\RequestBody(ref="#/components/schemas/UserRequestSchema"),
+ *     @OA\Response(response=200, description="User updated", @OA\JsonContent(ref="#/components/schemas/UserSchema"))
+ * )
+ * @OA\Delete(
+ *     path="/api/users/{id}",
+ *     tags={"User"},
+ *     summary="Delete user",
+ *     security={{"sanctum":{}}},
+ *     @OA\Parameter(name="id", in="path", required=true),
+ *     @OA\Response(response=200, description="User deleted")
  * )
  */
 class UserControllerDoc {}

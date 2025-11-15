@@ -4,11 +4,10 @@ namespace App\Swagger\Schemas;
 
 /**
  * @OA\Schema(
- *     schema="Episode",
+ *     schema="EpisodeSchema",
  *     type="object",
  *     title="Episode Resource"
  * )
- *
  * @OA\Property(property="id", type="integer", example=50)
  * @OA\Property(property="podcast_id", type="integer", example=10)
  * @OA\Property(property="title", type="string", example="Episode 1: AI Revolution")

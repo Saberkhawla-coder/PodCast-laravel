@@ -6,10 +6,8 @@ namespace App\Swagger\Schemas;
  * @OA\Schema(
  *     schema="UserSchema",
  *     type="object",
- *     title="User Resource",
- *     description="User model schema"
+ *     title="User Resource"
  * )
- *
  * @OA\Property(property="id", type="integer", example=1)
  * @OA\Property(property="first_name", type="string", example="John")
  * @OA\Property(property="last_name", type="string", example="Doe")
