@@ -8,6 +8,7 @@ use App\Models\User;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use PDO;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,20 +16,18 @@ class UserController extends Controller
 {
     //
     public function register(validateRequestUser $request){
-        try{
+      
            
             $user=User::create($request->validated());
             return response()->json(['message'=>'User registered successfully','users'=>$user] ,201);
-        }catch( \Exception $e){
-            return response()->json(['error' => 'Registration failed','message'=>$e->getMessage()] ,500);
-        }
+       
       
     }
    public function login(Request $request)
 {
-    try {
+    
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Invalid password or email'], 401);
+            return response()->json(['message' => 'Invalid password or email']);
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
@@ -40,12 +39,7 @@ class UserController extends Controller
             'token' => $token
         ]);
 
-    } catch (\Exception $e) {
-        return response()->json([
-            'error' => 'Login failed',
-            'message' => $e->getMessage()
-        ], 500);
-    }
+    
 }
 
     public function logout(Request $request){
@@ -55,7 +49,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', User::class);
+        Gate::authorize('viewAny', User::class);
 
         $users = User::all();
         return response()->json(['users' => $users]);
@@ -63,14 +57,14 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $this->authorize('view', $user);
+        Gate::authorize('view', $user);
 
         return response()->json(['user' => $user]);
     }
 
     public function store(ValidateRequestUser $request)
     {
-        $this->authorize('create', User::class);
+        Gate::authorize('create', User::class);
 
         $user = User::create($request->validated());
         return response()->json([
@@ -81,21 +75,26 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
-         if (auth()->user()->role !== 'admin') {
-            $request->merge(['role' => $user->role]);
-        }   
+       Gate::authorize('update', $user);
 
-        $user->update($request->validated());
+        $data = $request->validated();
+
+        if (auth()->user()->role !== 'admin') {
+            $data['role'] = $user->role;
+        }
+
+        $user->update($data);
+
         return response()->json([
             'message' => 'User updated successfully',
             'user' => $user
         ]);
+
     }
 
     public function destroy(User $user)
     {
-        $this->authorize('delete', $user);
+        Gate::authorize('delete', $user);
 
         $user->delete();
         return response()->json(['message' => 'User deleted successfully']);

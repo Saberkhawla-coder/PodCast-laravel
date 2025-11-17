@@ -23,10 +23,10 @@ class ValidateRequestPodcast extends FormRequest
     {
         return [
             'title' => 'required|string|min:3|max:100',
-            'description' => 'nullable|string|max:2000',
-            'image_path' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'genre' => 'nullable|string|max:50',
-            'is_published' => 'boolean',
+            'description' => 'required|nullable|string|max:2000',
+            'image_path' => 'required|nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'genre' => 'required|nullable|string|max:50',
+            'is_published' => 'required|boolean',
 
         ];
     }

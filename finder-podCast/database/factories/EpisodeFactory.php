@@ -19,7 +19,6 @@ class EpisodeFactory extends Factory
     {
         return [
             // 'podcast_id', 'title', 'description', 'audio_path', 'is_published'
-            'podcast_id'=>Podcast::factory(),
             'title'=>fake()->sentence(2),
             'description'=>fake()->paragraph(),
             'audio_path'=>fake()->url(),
