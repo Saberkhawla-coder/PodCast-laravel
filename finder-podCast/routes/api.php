@@ -27,18 +27,29 @@ Route::post('login',[UserController::class, 'login']);
 Route::post('logout',[UserController::class, 'logout'])->middleware('auth:sanctum');
 
 
-Route::apiResource('podcasts', PodcastController::class)->middleware('auth:sanctum');
+//Route::apiResource('podcasts', PodcastController::class)->middleware('auth:sanctum');
 // Route::post('podcasts/{podcast}',[ PodcastController::class, 'update'])->middleware('auth:sanctum');
 // 
 
-// Route::apiResource('episodes', EpisodeController::class)->middleware('auth:sanctum');
-Route::get('episodes/{episode}', [EpisodeController::class, 'show'])->middleware('auth:sanctum');
-Route::delete('episodes/{episode}', [EpisodeController::class, 'destroy'])->middleware('auth:sanctum');
-Route::get('/podcasts/{podcast}/episodes', [EpisodeController::class, 'index'])->middleware('auth:sanctum');
-Route::post('/podcasts/{podcast}/episodes', [EpisodeController::class, 'store'])->middleware('auth:sanctum');
-Route::put('/podcasts/{podcast}/episodes/{episod}', [EpisodeController::class, 'update'])->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('podcasts', PodcastController::class);
+    Route::apiResource('podcasts.episodes', EpisodeController::class);
+});
+
+
 
 Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
+
+
+
+
+
+// Route::get('episodes/{episode}', [EpisodeController::class, 'show'])->middleware('auth:sanctum');
+// Route::delete('episodes/{episode}', [EpisodeController::class, 'destroy'])->middleware('auth:sanctum');
+// Route::get('/podcasts/{podcast}/episodes', [EpisodeController::class, 'index'])->middleware('auth:sanctum');
+// Route::post('/podcasts/{podcast}/episodes', [EpisodeController::class, 'store'])->middleware('auth:sanctum');
+// Route::put('/podcasts/{podcast}/episodes/{ep}', [EpisodeController::class, 'update'])->middleware('auth:sanctum');
+
 
  
 

@@ -22,13 +22,12 @@ class UpdateRequestEpisode extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-            'title' => 'sometimes|string|min:3|max:100',
-            'description' => 'sometimes|string|max:2000',
-            'audio_path' =>'sometimes|file|mimes:mp3,wav,mpeg,ogg|max:10240',
+         return [
+            'title'        => 'sometimes|string|min:3|max:100',
+            'description'  => 'sometimes|string|max:2000',
+            'audio_path'   => 'sometimes|file|mimes:mp3,wav,ogg|max:10000',
             'is_published' => 'sometimes|boolean',
-        ];
+    ];
     }
     public function messages():array{
         return[

@@ -26,12 +26,16 @@ class UserController extends Controller
    public function login(Request $request)
 {
     
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Invalid password or email']);
+        if (!Auth::attempt($request->only('email'))) {
+            return response()->json(['message' => 'invalid email']);
         }
+        // if (!Auth::attempt($request->only('password'))) {
+        //     return response()->json(['message' => 'Invalid password ']);
+        // }
+       
 
         $user = User::where('email', $request->email)->firstOrFail();
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token');
 
         return response()->json([
             'message' => 'Login success',
@@ -75,29 +79,46 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-       Gate::authorize('update', $user);
+        try{
+            Gate::authorize('update', $user);
 
-        $data = $request->validated();
+            $data = $request->validated();
 
-        if (auth()->user()->role !== 'admin') {
-            $data['role'] = $user->role;
+            if (auth()->user()->role !== 'admin') {
+                $data['role'] = $user->role;
+            }
+
+            $user->update($data);
+
+            return response()->json([
+                'message' => 'User updated successfully',
+                'user' => $user
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 400);
         }
-
-        $user->update($data);
-
-        return response()->json([
-            'message' => 'User updated successfully',
-            'user' => $user
-        ]);
+      
 
     }
 
     public function destroy(User $user)
     {
-        Gate::authorize('delete', $user);
+            try {
+            Gate::authorize('delete', $user);
 
-        $user->delete();
-        return response()->json(['message' => 'User deleted successfully']);
+            $user->delete();
+
+            return response()->json(['message' => 'User deleted successfully']);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 400);
+        }
+
     }
    
 

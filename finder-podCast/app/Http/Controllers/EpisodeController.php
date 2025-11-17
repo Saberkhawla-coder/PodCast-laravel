@@ -30,9 +30,7 @@ class EpisodeController extends Controller
 
     if ($request->hasFile('audio_path')) {
             $audioPath = $request->file('audio_path')->store('episodes', 'public');
-        } else {
-            $audioPath = null;
-        }
+        } 
 
         $episode = Episode::create([
             ...$request->validated(),
@@ -48,25 +46,22 @@ class EpisodeController extends Controller
 }
 
 
-   public function update(UpdateRequestEpisode $request, Episode $episode)
+  public function update(UpdateRequestEpisode $request, Podcast $podcast, Episode $episode)
 {
     Gate::authorize('update', $episode);
 
-    $data= $request->validated();
-
+    $data = $request->validated();
     if ($request->hasFile('audio_path')) {
-        $data['audio_path']  = $request->file('audio_path')->store('episodes', 'public');
-    } else {
-         $data['audio_path']  = $episode->audio_path; 
+        $data['audio_path'] = $request->file('audio_path')->store('episodes','public');
     }
-
- 
     $episode->update($data);
 
     return response()->json(['message' => 'Episode updated successfully']);
 }
 
-    public function destroy(Episode $episode)
+
+
+    public function destroy(Podcast $podcast, Episode $episode)
     {
         Gate::authorize('delete', $episode);
         
